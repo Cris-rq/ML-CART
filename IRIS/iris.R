@@ -23,13 +23,27 @@ accuracyParty
 
 #TREE RPART
 rpart_tree <- rpart(formula, data = train, method = "class")
-rpart.plot(rpart_tree0)
+rpart.plot(rpart_tree)
 
 predictionRPart = predict(rpart_tree, type="class", newdata = validation)
 matrizConfusionRpart = table(predictionRPart, validation$Species)
 
 accuracyRpart= sum(diag(matrizConfusionRpart))/sum(matrizConfusionRpart)
 accuracyRpart
+
+#PRUNE
+opt <- which.min(rpart_tree$cptable[,"xerror"])
+cpmin <- rpart_tree$cptable[opt, "CP"]
+treerpart_prune <- prune(rpart_tree, cp = cpmin)
+
+predictionRPartPoda = predict(treerpart_prune, type="class", newdata = validation)
+matrizConfusionRpartPoda = table(predictionRPartPoda, validation$Species)
+matrizConfusionRpartPoda
+accuracyRpartPoda = sum(diag(matrizConfusionRpartPoda))/sum(matrizConfusionRpartPoda)
+accuracyRpartPoda
+
+rpart.plot(rpart_tree)
+rpart.plot(treerpart_prune)
 
 #FIND MINIM MINBUCKET Y MINSPLIT
 limit_param1 = 30
