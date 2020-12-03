@@ -1,7 +1,6 @@
 library(rpart)
 library(rpart.plot)
 
-set.seed(5)
 
 training_set <- read.table("entrenamiento.txt", sep=",", header=TRUE)
 validation_set <- read.table("test.txt", sep=",", header=TRUE)
@@ -45,7 +44,7 @@ validation_set$votation <- substr(validation_set$votation, 1, nchar(validation_s
 
 
 #FORMULA
-formula <- training_set$votation ~ handicappedinfants + waterprojectcostsharing + adoptionofthebudgetresolution +elsalvadoraid +religiousgroupsinschools +antisatellitetestban +aidtonicaraguancontra +mxmissile +immigration +synfuelscorporationcutback +educationspending +superfundrighttosue +crime +dutyfreeexports +exportadministrationactsouthafrica
+formula <- training_set$votation ~ handicappedinfants + waterprojectcostsharing + adoptionofthebudgetresolution +physicianfeefreeze+elsalvadoraid +religiousgroupsinschools +antisatellitetestban +aidtonicaraguancontra +mxmissile +immigration +synfuelscorporationcutback +educationspending +superfundrighttosue +crime +dutyfreeexports +exportadministrationactsouthafrica
 #TREE
 tree_rpart = rpart(formula, data = training_set, method = "class")
 rpart.plot(tree_rpart)
